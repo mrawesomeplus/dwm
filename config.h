@@ -1,5 +1,9 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Constants */
+#define TERMINAL "st"
+#define TERMCLASS "st"
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 5;        /* gaps between windows */
@@ -71,6 +75,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,               {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,               {.v = termcmd } },
 	{ MODKEY,			XK_w,	   spawn,		SHCMD("$BROWSER") },
+	{ MODKEY,			XK_e,	   spawn,		SHCMD(TERMINAL " -e mutt") },
 	{ MODKEY,                       XK_b,      togglebar,           {0} },
 	{ MODKEY,                       XK_j,      focusstack,          {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,          {.i = -1 } },
