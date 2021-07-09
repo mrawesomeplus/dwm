@@ -65,11 +65,10 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *mutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
-static const char *volupcmd[] = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
-static const char *voldowncmd[] = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
+static const char *mutevol[]  = { "amixer", "-q", "set", "Master", "toggle", NULL };
+static const char *volup[]    = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
+static const char *voldown[]  = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 
-#include </usr/include/X11/XF86keysym.h>
 static Key keys[] = {
 	/* modifier                     key        function             argument */
 	{ MODKEY,                       XK_d,      spawn,               {.v = dmenucmd } },
@@ -111,10 +110,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                           7)
 	TAGKEYS(                        XK_9,                           8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,                {0} },
-	/* laptop volume binds */
-	{ 0,				XF86XK_AudioMute, spawn, 	{.v = mutecmd } },
-	{ 0, 				XF86XK_AudioLowerVolume, spawn, {.v = voldowncmd } },
-	{ 0,				XF86XK_AudioRaiseVolume, spawn, {.v = volupcmd } },
+	/*volume binds */
+	{ 0,				XK_F10,    spawn, 		{.v = mutevol } },
+	{ 0, 				XK_F11,    spawn, 		{.v = voldown } },
+	{ 0,				XK_F12,    spawn, 		{.v = volup } },
 };
 
 /* button definitions */
