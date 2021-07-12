@@ -111,9 +111,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                           8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,                {0} },
 	/*volume binds */
-	{ 0,				XK_F10,    spawn, 		{.v = mutevol } },
-	{ 0, 				XK_F11,    spawn, 		{.v = voldown } },
-	{ 0,				XK_F12,    spawn, 		{.v = volup } },
+	{ MODKEY,			XK_F10,    spawn, 		{.v = mutevol } },
+	{ MODKEY, 			XK_F11,    spawn, 		{.v = voldown } },
+	{ MODKEY,			XK_F12,    spawn, 		{.v = volup } },
 };
 
 /* button definitions */
