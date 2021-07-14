@@ -65,6 +65,9 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
+static const char *mutevol[]  = { "amixer", "-q", "set", "Master", "toggle", NULL };
+static const char *volup[]    = { "amixer", "-q", "set", "Master", "5%+", "unmute", NULL };
+static const char *voldown[]  = { "amixer", "-q", "set", "Master", "5%-", "unmute", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function             argument */
@@ -108,9 +111,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                           8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,                {0} },
 	/*volume binds */
-	{ MODKEY,			XK_F10,    spawn, 		SHCMD("pamixer -t") },
-	{ MODKEY, 			XK_F11,    spawn, 		SHCMD("pamixer --allow-boost -d 5") },
-	{ MODKEY,			XK_F12,    spawn, 		SHCMD("pamixer --allow-boost -i 5") },
+	{ MODKEY,			XK_F10,    spawn, 		{.v = mutevol } },
+	{ MODKEY, 			XK_F11,    spawn, 		{.v = voldown } },
+	{ MODKEY,			XK_F12,    spawn, 		{.v = volup } },
 };
 
 /* button definitions */
