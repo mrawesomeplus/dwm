@@ -34,7 +34,7 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ TERMCLASS, NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ "st", NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -70,8 +70,8 @@ static Key keys[] = {
 	/* modifier                     key        function             argument */
 	{ MODKEY,                       XK_d,      spawn,               {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,               {.v = termcmd } },
-	{ MODKEY,			XK_w,	   spawn,		SHCMD("$BROWSER") },
-	{ MODKEY,			XK_e,	   spawn,		SHCMD(TERMINAL " -e mutt") },
+	{ MODKEY,           			XK_w,	   spawn,		        SHCMD("$BROWSER") },
+	{ MODKEY,		            	XK_e,	   spawn,	        	SHCMD(TERMINAL " -e mutt") },
 	{ MODKEY,                       XK_b,      togglebar,           {0} },
 	{ MODKEY,                       XK_j,      focusstack,          {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,          {.i = -1 } },
@@ -84,6 +84,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_q,      killclient,          {0} },
 	{ MODKEY,                       XK_t,      setlayout,           {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,           {.v = &layouts[1]} },
+    { MODKEY|ShiftMask,             XK_f,      togglefullscr,       {0} },
 	{ MODKEY,                       XK_m,      setlayout,           {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,           {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating,      {0} },
