@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* Constants */
-#define TERMINAL "urxvt"
-#define TERMCLASS "urxvt"
+#define TERMINAL "st"
+#define TERMCLASS "st"
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -34,7 +34,7 @@ static const Rule rules[] = {
 	 */
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "st", NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ TERMCLASS, NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -97,7 +97,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,             {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,             {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,             {.i = 0  } },
-	/* tag binds */
+    { MODKEY,                       XK_s,      spawn,               SHCMD("signal-desktop") },
 	TAGKEYS(                        XK_1,                           0)
 	TAGKEYS(                        XK_2,                           1)
 	TAGKEYS(                        XK_3,                           2)
