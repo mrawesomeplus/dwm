@@ -789,8 +789,6 @@ drawbar(Monitor *m)
 	}
 
 	for (c = m->clients; c; c = c->next) {
-		// prevent showing the panel as active application:
-		if (ispanel(c)) continue;
 		occ |= c->tags == 255 ? 0 : c->tags;
 		if (c->isurgent)
 			urg |= c->tags;
