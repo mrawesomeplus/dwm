@@ -111,9 +111,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                           7)
 	TAGKEYS(                        XK_9,                           8)
 	/*volume binds */
-	{ 0,				XF86XK_AudioMute,	spawn, 	SHCMD("pactl set-sink-mute 0 toggle; kill -44 $(pidof dwmblocks)") },
-	{ 0, 				XF86XK_AudioLowerVolume,spawn, 	SHCMD("pactl set-sink-volume 0 -5%; kill -44 $(pidof dwmblocks)") },
-	{ 0,				XF86XK_AudioRaiseVolume,spawn, 	SHCMD("pactl set-sink-volume 0 +5%; kill -44 $(pidof dwmblocks)") },
+	{ 0,				XF86XK_AudioMute,	spawn, 	SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
+	{ 0, 				XF86XK_AudioLowerVolume,spawn, 	SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
+	{ 0,				XF86XK_AudioRaiseVolume,spawn, 	SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
 	/*brightness binds */
 	{ 0,				XF86XK_MonBrightnessUp,	spawn,	SHCMD("xbacklight -inc 15") },
 	{ 0,				XF86XK_MonBrightnessDown,	spawn,	SHCMD("xbacklight -dec 15") },
