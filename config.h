@@ -60,12 +60,11 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-
+#include <X11/XF86keysym.h>
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
-//volume controls
 
 static Key keys[] = {
 	/* modifier                     key        function             argument */
@@ -80,9 +79,10 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      setmfact,            {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,            {.f = +0.05} },
 	{ MODKEY|ShiftMask,		XK_l,	   spawn,		SHCMD("slock") },
+	{ MODKEY|ShiftMask,		XK_r,	   quit,		{0} },
     	{ MODKEY,                       XK_s,      spawn,               SHCMD("signal-desktop") },
 	{ MODKEY,                       XK_q,      killclient,          {0} },
-	{ MODKEY|ShiftMask,             XK_q,      quit,                {0} },
+	{ MODKEY|ShiftMask,             XK_q,      spawn,		SHCMD("kill $(pidof xinit)") },
 	{ MODKEY,                       XK_t,      setlayout,           {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,           {.v = &layouts[1]} },
     	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,       {0} },
@@ -111,9 +111,12 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                           7)
 	TAGKEYS(                        XK_9,                           8)
 	/*volume binds */
-	{ MODKEY,			XK_F10,    spawn, 		SHCMD("pamixer -t") },
-	{ MODKEY, 			XK_F11,    spawn, 		SHCMD("pamixer -d 5") },
-	{ MODKEY,			XK_F12,    spawn, 		SHCMD("pamixer -i 5")   },
+	{ 0,				XF86XK_AudioMute,	spawn, 	SHCMD("pactl set-sink-mute 0 toggle; kill -44 $(pidof dwmblocks)") },
+	{ 0, 				XF86XK_AudioLowerVolume,spawn, 	SHCMD("pactl set-sink-volume 0 -5%; kill -44 $(pidof dwmblocks)") },
+	{ 0,				XF86XK_AudioRaiseVolume,spawn, 	SHCMD("pactl set-sink-volume 0 +5%; kill -44 $(pidof dwmblocks)") },
+	/*brightness binds */
+	{ 0,				XF86XK_MonBrightnessUp,	spawn,	SHCMD("xbacklight -inc 15") },
+	{ 0,				XF86XK_MonBrightnessDown,	spawn,	SHCMD("xbacklight -dec 15") },
 };
 
 /* button definitions */
