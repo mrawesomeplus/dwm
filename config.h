@@ -15,17 +15,19 @@ static const int topbar             = 1;	/* 0 means bottom bar */
 /* static const int vertpad	    = 33;	horizontal padding of bar */
 static const int horizpadbar	    = 0;	/* horizontal padding for statusbar */
 static const int vertpadbar         = 0;       /* vertical padding for statusbar */
-static const char *fonts[]          = { "inconsolata:size=14:antialiasing=true", "fontawesome:size=14" };
-static const char dmenufont[]       = "inconsolata:size=14:antialiasing=true";
+static const char *fonts[]          = { "UbuntuMono:size=14:antialiasing=true", "fontawesome:size=14" };
+static const char dmenufont[]       = "UbuntuMono:size=14:antialiasing=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#ff5555";
+static const char col_gray4[]       = "#ff5555";
+/*static const char col_gray4[]       = "#eeeeee";*/
+static const char col_cyan[]        = "#222222";
+/*static const char col_cyan[]        = "#ff5555"; */
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_gray4  },
 };
 
 /* tagging */
@@ -55,7 +57,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -86,7 +88,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		XK_r,	   quit,		{0} },
     	{ MODKEY,                       XK_s,      spawn,               SHCMD("signal-desktop") },
 	{ MODKEY,                       XK_q,      killclient,          {0} },
-	{ MODKEY|ShiftMask,             XK_q,      spawn,		SHCMD("kill $(pidof xinit)") },
+	{ MODKEY|ShiftMask,             XK_q,      spawn,		SHCMD("pkill dwm") },
 	{ MODKEY,                       XK_t,      setlayout,           {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,           {.v = &layouts[1]} },
     	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,       {0} },
@@ -116,8 +118,11 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                           8)
 	/*volume binds */
 	{ 0,				XF86XK_AudioMute,	spawn, 	SHCMD("pactl set-sink-mute 0 toggle; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,			XK_F8,	spawn, 	SHCMD("pactl set-sink-mute o toggle") },
 	{ 0, 				XF86XK_AudioLowerVolume,spawn, 	SHCMD("pactl set-sink-volume 0 -5%; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY, 			XK_F9,	spawn, 	SHCMD("pactl set-sink-volume 0 -5%") },
 	{ 0,				XF86XK_AudioRaiseVolume,spawn, 	SHCMD("pactl set-sink-volume 0 +5%; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,			XK_F10,	spawn, 	SHCMD("pactl set-sink-volume 0 +5%") },
 	/*brightness binds */
 	{ 0,				XF86XK_MonBrightnessUp,	spawn,	SHCMD("xbacklight -inc 15") },
 	{ 0,				XF86XK_MonBrightnessDown,	spawn,	SHCMD("xbacklight -dec 15") },
