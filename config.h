@@ -15,19 +15,17 @@ static const int topbar             = 1;	/* 0 means bottom bar */
 /* static const int vertpad	    = 33;	horizontal padding of bar */
 static const int horizpadbar	    = 0;	/* horizontal padding for statusbar */
 static const int vertpadbar         = 0;       /* vertical padding for statusbar */
-static const char *fonts[]          = { "UbuntuMono:size=14:antialiasing=true", "fontawesome:size=14" };
-static const char dmenufont[]       = "UbuntuMono:size=14:antialiasing=true";
+static const char *fonts[]          = { "undefined-mono:size=14", "fontawesome:size=14" };
+static const char dmenufont[]       = "undefined-mono:size=14";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#ff5555";
-/*static const char col_gray4[]       = "#eeeeee";*/
-static const char col_cyan[]        = "#222222";
-/*static const char col_cyan[]        = "#ff5555"; */
+static const char col_gray4[]       = "#282a36";
+static const char col_cyan[]        = "#bd93f9";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_gray4  },
+	[SchemeSel]  = { col_cyan, col_gray1,  col_cyan  },
 };
 
 /* tagging */
@@ -69,12 +67,17 @@ static const Layout layouts[] = {
 #include <X11/XF86keysym.h>
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray1, "-sf", col_cyan, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
+static const char *flameshotcmd[] = { "flameshot", "gui", NULL };
+static const char *volup[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *voldown[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *volmute[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function             argument */
 	{ MODKEY,                       XK_d,      spawn,               {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,		XK_d,	   spawn,		{.v = flameshotcmd } },
 	{ MODKEY,           		XK_w,	   spawn,		SHCMD("$BROWSER") },
 	{ MODKEY,		        XK_e,	   spawn,	        SHCMD(TERMINAL " -e mutt") },
 	{ MODKEY,                       XK_b,      togglebar,           {0} },
@@ -117,15 +120,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                           7)
 	TAGKEYS(                        XK_9,                           8)
 	/*volume binds */
-	{ 0,				XF86XK_AudioMute,	spawn, 	SHCMD("pactl set-sink-mute 0 toggle; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,			XK_F8,	spawn, 	SHCMD("pactl set-sink-mute o toggle") },
-	{ 0, 				XF86XK_AudioLowerVolume,spawn, 	SHCMD("pactl set-sink-volume 0 -5%; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY, 			XK_F9,	spawn, 	SHCMD("pactl set-sink-volume 0 -5%") },
-	{ 0,				XF86XK_AudioRaiseVolume,spawn, 	SHCMD("pactl set-sink-volume 0 +5%; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,			XK_F10,	spawn, 	SHCMD("pactl set-sink-volume 0 +5%") },
-	/*brightness binds */
-	{ 0,				XF86XK_MonBrightnessUp,	spawn,	SHCMD("xbacklight -inc 15") },
-	{ 0,				XF86XK_MonBrightnessDown,	spawn,	SHCMD("xbacklight -dec 15") },
+	{ MODKEY,			XK_F8,	spawn, 			{.v = volmute } },
+	{ MODKEY, 			XK_F9,	spawn, 			{.v = voldown } },
+	{ MODKEY,			XK_F10,	spawn,			{.v = volup } },
 };
 
 /* button definitions */
